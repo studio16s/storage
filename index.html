@@ -1,0 +1,1216 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#100c14">
+<title>Jaolove Studio16 — Mini Shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#100c14;
+  --panel:#19131f;
+  --panel2:#211827;
+  --panel3:#2a2030;
+  --text:#f4eaf2;
+  --muted:#a99aaa;
+  --pink:#e5a6cb;
+  --pink2:#b86d9b;
+  --line:#443347;
+  --gold:#d8bd91;
+  --danger:#e58b9d;
+  --shadow:0 18px 50px rgba(0,0,0,.28);
+  --radius:20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 12% 0%,rgba(184,109,155,.13),transparent 30%),
+    radial-gradient(circle at 90% 30%,rgba(105,76,122,.12),transparent 28%),
+    var(--bg);
+  font-family:'Prompt',sans-serif;
+  font-size:14px;
+  min-height:100vh;
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.45;cursor:not-allowed}
+img{max-width:100%;display:block}
+.hidden{display:none!important}
+.muted{color:var(--muted)}
+.small{font-size:12px}
+.serif{font-family:'Cormorant Garamond',serif}
+.wrap{width:min(1180px,calc(100% - 32px));margin:auto}
+.topbar{
+  position:sticky;top:0;z-index:20;
+  background:rgba(16,12,20,.88);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(229,166,203,.15);
+}
+.topbar-inner{
+  min-height:66px;display:flex;align-items:center;
+  justify-content:space-between;gap:14px;
+}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand-mark{
+  width:42px;height:42px;border-radius:14px;
+  display:grid;place-items:center;
+  color:#160f18;background:linear-gradient(145deg,#f1c5dc,#a96d91);
+  font-size:20px;box-shadow:0 5px 20px #b86d9b30;
+}
+.brand-name{font-size:15px;font-weight:600;letter-spacing:.3px}
+.brand-sub{font-size:10px;color:var(--muted);letter-spacing:1.5px}
+.top-actions{display:flex;gap:8px;align-items:center}
+.btn{
+  border:1px solid var(--line);color:var(--text);
+  background:var(--panel2);padding:10px 14px;
+  border-radius:12px;transition:.2s;
+}
+.btn:hover{border-color:var(--pink);transform:translateY(-1px)}
+.btn-primary{
+  color:#211521;border:0;font-weight:600;
+  background:linear-gradient(135deg,#f1c5dc,#c783ac);
+  box-shadow:0 6px 18px #c783ac25;
+}
+.btn-danger{color:#ffc0cb;border-color:#74404f;background:#321d29}
+.btn-soft{background:#302438;border-color:#57415c}
+.btn-icon{width:36px;height:36px;padding:0;display:grid;place-items:center}
+.hero{padding:34px 0 22px}
+.hero-card{
+  position:relative;overflow:hidden;
+  padding:30px;border:1px solid var(--line);
+  border-radius:26px;
+  background:linear-gradient(115deg,#251a2b,#17111c 65%,#2a1b2b);
+  box-shadow:var(--shadow);
+}
+.hero-card:after{
+  content:"✦";position:absolute;right:35px;top:-35px;
+  font-size:180px;color:#e5a6cb0d;pointer-events:none;
+}
+.hero-content{position:relative;z-index:1}
+.eyebrow{color:var(--pink);font-size:11px;letter-spacing:3px}
+.hero h1{font:600 clamp(32px,6vw,48px)/1.05 'Cormorant Garamond',serif;margin:8px 0}
+.hero p{color:#c0afc1;margin:8px 0 0;max-width:560px}
+.hero-bottom{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;flex-wrap:wrap;margin-top:22px;
+}
+.pill{
+  display:inline-flex;align-items:center;gap:6px;
+  border:1px solid #684d65;background:#302236;
+  color:#eac2d9;border-radius:999px;padding:6px 11px;font-size:11px;
+}
+.section{padding:14px 0 28px}
+.section-head{
+  display:flex;align-items:end;justify-content:space-between;
+  gap:12px;margin-bottom:15px;flex-wrap:wrap;
+}
+.section-title{font-size:19px;font-weight:600;margin:0}
+.section-desc{font-size:11px;color:var(--muted);margin-top:3px}
+.toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.field{
+  width:100%;background:#120e17;color:var(--text);
+  border:1px solid var(--line);border-radius:12px;
+  padding:11px 12px;outline:none;min-width:0;
+}
+.field:focus{border-color:var(--pink);box-shadow:0 0 0 3px #e5a6cb18}
+.field::placeholder{color:#796b7e}
+textarea.field{resize:vertical;min-height:76px}
+.search{width:min(260px,100%)}
+.category-row{
+  display:flex;gap:8px;overflow:auto;padding:2px 0 13px;
+  scrollbar-width:thin;
+}
+.category-chip{
+  white-space:nowrap;border:1px solid var(--line);
+  background:var(--panel);color:var(--muted);
+  padding:7px 13px;border-radius:999px;font-size:12px;
+}
+.category-chip.active{
+  color:#241724;background:var(--pink);border-color:var(--pink);
+}
+.product-grid{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;
+}
+.product-card{
+  min-width:0;overflow:hidden;border:1px solid var(--line);
+  border-radius:17px;background:linear-gradient(150deg,#211927,#18121d);
+  transition:.2s;position:relative;
+}
+.product-card:hover{border-color:#a56c91;transform:translateY(-2px)}
+.product-image{
+  aspect-ratio:1/1;background:#2b2130;position:relative;
+  overflow:hidden;display:grid;place-items:center;
+}
+.product-image img{width:100%;height:100%;object-fit:cover}
+.no-image{font-size:35px;color:#8e718e}
+.product-info{padding:12px}
+.product-name{font-size:13px;font-weight:500;line-height:1.5;min-height:39px}
+.product-category{font-size:10px;color:var(--muted);margin-top:3px}
+.product-price{font-weight:600;color:var(--pink);margin:8px 0 10px}
+.product-buttons{display:flex;gap:6px}
+.product-buttons .btn{flex:1;padding:8px 6px;font-size:11px}
+.product-edit{
+  position:absolute;right:8px;top:8px;z-index:2;
+  background:#130f19d9;border:1px solid #765b76;
+  color:#f4d9e9;border-radius:9px;padding:6px 9px;font-size:11px;
+}
+.empty{
+  padding:38px 16px;text-align:center;
+  border:1px dashed #604b62;border-radius:18px;color:var(--muted);
+  background:#1b1420;
+}
+.empty-icon{font-size:35px;margin-bottom:8px}
+.main-layout{
+  display:grid;grid-template-columns:minmax(0,1fr) 350px;
+  gap:18px;align-items:start;
+}
+.panel{
+  background:linear-gradient(150deg,#211927,#18121d);
+  border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+.cart-panel{position:sticky;top:82px;overflow:hidden}
+.panel-head{
+  padding:16px 17px;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+}
+.panel-title{font-weight:600;font-size:15px}
+.count{
+  background:#53364f;color:#f5cde0;border-radius:999px;
+  min-width:24px;text-align:center;padding:3px 7px;font-size:11px;
+}
+.cart-list{padding:10px 14px;max-height:340px;overflow:auto}
+.cart-empty{text-align:center;color:var(--muted);padding:25px 8px}
+.cart-item{
+  display:grid;grid-template-columns:52px minmax(0,1fr) auto;
+  gap:10px;align-items:center;padding:10px 0;
+  border-bottom:1px solid #382a3d;
+}
+.cart-thumb{
+  width:52px;height:52px;border-radius:11px;
+  background:#302438;overflow:hidden;display:grid;place-items:center;
+}
+.cart-thumb img{width:100%;height:100%;object-fit:cover}
+.cart-item-name{font-size:12px;font-weight:500}
+.cart-item-price{font-size:11px;color:var(--pink);margin-top:3px}
+.qty-row{display:flex;align-items:center;gap:8px;margin-top:7px}
+.qty-btn{
+  width:24px;height:24px;border-radius:7px;
+  border:1px solid #5c455f;background:#302438;color:white;
+}
+.qty-value{min-width:16px;text-align:center;font-size:12px}
+.cart-line-total{font-size:12px;font-weight:600;white-space:nowrap}
+.cart-remove{color:#d88b9c;border:0;background:none;font-size:11px;padding:4px 0}
+.cart-summary{padding:14px 16px;border-top:1px solid var(--line)}
+.summary-row{
+  display:flex;justify-content:space-between;gap:10px;
+  margin:8px 0;color:#c8b8c9;font-size:12px;
+}
+.summary-row.total{
+  color:var(--text);font-size:17px;font-weight:600;
+  border-top:1px solid var(--line);padding-top:12px;margin-top:12px;
+}
+.summary-row.total strong{color:var(--pink)}
+.checkout-fields{padding:0 16px 15px;display:grid;gap:9px}
+.field-label{font-size:11px;color:#c5b4c8;margin-bottom:5px;display:block}
+.two-fields{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.checkout-btn{width:100%;padding:13px;font-size:13px}
+.footer{
+  text-align:center;padding:28px 12px 35px;
+  color:#796a7d;font-size:11px;
+}
+.footer b{color:#c78ead;font-weight:500}
+.modal-backdrop{
+  position:fixed;inset:0;z-index:50;background:#09070bd9;
+  display:none;align-items:center;justify-content:center;padding:15px;
+}
+.modal-backdrop.show{display:flex}
+.modal{
+  width:min(560px,100%);max-height:92vh;overflow:auto;
+  background:#1c1521;border:1px solid #624a63;border-radius:22px;
+  box-shadow:0 25px 90px #0009;
+}
+.modal.wide{width:min(850px,100%)}
+.modal-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:17px 19px;border-bottom:1px solid var(--line);
+  position:sticky;top:0;background:#1c1521;z-index:2;
+}
+.modal-head h3{margin:0;font-size:16px}
+.modal-body{padding:18px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-group{min-width:0}
+.form-group.full{grid-column:1/-1}
+.upload-box{
+  border:1px dashed #8b6385;border-radius:15px;
+  padding:12px;background:#241b2a;
+}
+.upload-preview{
+  width:100%;aspect-ratio:16/9;object-fit:contain;
+  background:#17111c;border-radius:10px;margin-bottom:10px;
+}
+.modal-actions{
+  display:flex;justify-content:flex-end;gap:8px;
+  padding:14px 18px;border-top:1px solid var(--line);
+}
+.history-list{display:grid;gap:9px}
+.history-card{
+  border:1px solid var(--line);border-radius:13px;
+  padding:12px;background:#211927;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+}
+.history-info{min-width:0}
+.history-no{font-weight:600;color:var(--pink);font-size:12px}
+.history-meta{font-size:11px;color:var(--muted);margin-top:3px}
+.history-total{font-weight:600;white-space:nowrap}
+.history-actions{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
+.history-actions .btn{font-size:10px;padding:6px 9px}
+.toast{
+  position:fixed;bottom:22px;left:50%;z-index:100;
+  transform:translate(-50%,20px);opacity:0;pointer-events:none;
+  background:#f0c6dc;color:#251724;border-radius:999px;
+  padding:10px 17px;font-size:12px;font-weight:600;
+  box-shadow:0 8px 30px #0005;transition:.25s;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.receipt-preview{
+  background:#fff;color:#211a22;border-radius:12px;
+  padding:24px;margin:0 auto;max-width:520px;
+  font-family:'Prompt',sans-serif;
+}
+.receipt-preview h2{font:700 27px 'Cormorant Garamond',serif;margin:0}
+.receipt-preview .r-muted{color:#746977;font-size:11px}
+.receipt-preview table{width:100%;border-collapse:collapse;margin:16px 0;font-size:12px}
+.receipt-preview th,.receipt-preview td{
+  text-align:left;padding:8px 4px;border-bottom:1px solid #e9e0e8;
+}
+.receipt-preview th:last-child,.receipt-preview td:last-child{text-align:right}
+.receipt-preview .r-total{
+  display:flex;justify-content:space-between;padding:5px 0;font-size:12px;
+}
+.receipt-preview .r-grand{
+  border-top:1px solid #cdb9ca;margin-top:8px;padding-top:12px;
+  font-size:17px;font-weight:700;color:#9a527c;
+}
+@media(max-width:900px){
+  .product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .main-layout{grid-template-columns:minmax(0,1fr) 320px}
+}
+@media(max-width:700px){
+  .wrap{width:min(100% - 22px,560px)}
+  .topbar-inner{min-height:58px}
+  .brand-mark{width:37px;height:37px}
+  .brand-name{font-size:13px}
+  .top-actions .btn{padding:8px 10px;font-size:11px}
+  .hero{padding:19px 0 12px}
+  .hero-card{padding:22px 19px;border-radius:21px}
+  .hero h1{font-size:37px}
+  .main-layout{grid-template-columns:1fr}
+  .cart-panel{position:static}
+  .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .product-info{padding:10px}
+  .product-name{font-size:12px}
+  .product-buttons .btn{font-size:10px}
+  .search{width:100%}
+  .section-head{align-items:start}
+  .toolbar{width:100%}
+  .toolbar .search{flex:1}
+  .form-grid{grid-template-columns:1fr}
+  .form-group.full{grid-column:auto}
+  .history-card{align-items:flex-start}
+}
+@media print{
+  body{background:#fff!important}
+}
+</style>
+</head>
+
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand">
+      <div class="brand-mark">♡</div>
+      <div>
+        <div class="brand-name" id="topShopName">Jaolove Studio16</div>
+        <div class="brand-sub">GOTHIC MINI SHOP</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="btn" onclick="openHistory()">ประวัติใบเสร็จ</button>
+      <button class="btn btn-primary" onclick="openProductModal()">＋ เพิ่มสินค้า</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="hero-card">
+      <div class="hero-content">
+        <div class="eyebrow">✦ WELCOME TO OUR STORE ✦</div>
+        <h1 class="serif" id="heroShopName">Jaolove Studio16</h1>
+        <p id="heroDescription">A little gothic shop with love ♡</p>
+        <div class="hero-bottom">
+          <span class="pill">✧ MINI SHOP & RECEIPT ✧</span>
+          <button class="btn btn-soft" onclick="openProfileModal()">แก้ไขโปรไฟล์ร้าน</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="main-layout">
+      <div>
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">✦ รายการสินค้า</h2>
+            <div class="section-desc">เลือกสินค้าที่ต้องการเพื่อเพิ่มลงในตะกร้า</div>
+          </div>
+          <div class="toolbar">
+            <input class="field search" id="productSearch" placeholder="ค้นหาสินค้า..." oninput="renderProducts()">
+            <button class="btn btn-primary" onclick="openProductModal()">＋ เพิ่มสินค้า</button>
+          </div>
+        </div>
+        <div class="category-row" id="categoryRow"></div>
+        <div class="product-grid" id="productGrid"></div>
+      </div>
+
+      <aside class="panel cart-panel">
+        <div class="panel-head">
+          <div class="panel-title">♡ ตะกร้าสินค้า</div>
+          <span class="count" id="cartCount">0</span>
+        </div>
+        <div class="cart-list" id="cartList">
+          <div class="cart-empty">ยังไม่มีสินค้าในตะกร้า ♡</div>
+        </div>
+
+        <div class="cart-summary">
+          <div class="summary-row"><span>ยอดรวมสินค้า</span><strong id="subtotalText">฿0.00</strong></div>
+          <div class="summary-row"><span>ส่วนลด</span><strong id="discountText">- ฿0.00</strong></div>
+          <div class="summary-row total"><span>ยอดสุทธิ</span><strong id="grandTotalText">฿0.00</strong></div>
+        </div>
+
+        <div class="checkout-fields">
+          <div>
+            <label class="field-label" for="customerName">ชื่อลูกค้า</label>
+            <input class="field" id="customerName" placeholder="ระบุชื่อลูกค้า (ไม่บังคับ)">
+          </div>
+          <div class="two-fields">
+            <div>
+              <label class="field-label" for="paymentMethod">ช่องทางชำระเงิน</label>
+              <select class="field" id="paymentMethod">
+                <option>โอนเงิน</option>
+                <option>เงินสด</option>
+                <option>พร้อมเพย์</option>
+                <option>บัตรเครดิต</option>
+                <option>อื่น ๆ</option>
+              </select>
+            </div>
+            <div>
+              <label class="field-label" for="discountInput">ส่วนลด (บาท)</label>
+              <input class="field" id="discountInput" type="number" min="0" step="0.01" value="0" oninput="renderCart()">
+            </div>
+          </div>
+          <div>
+            <label class="field-label" for="receiptNote">หมายเหตุในใบเสร็จ</label>
+            <input class="field" id="receiptNote" placeholder="ขอบคุณที่อุดหนุนค่ะ ♡">
+          </div>
+          <button class="btn btn-primary checkout-btn" id="checkoutBtn" onclick="checkout()">✦ สร้างใบเสร็จ</button>
+          <button class="btn" onclick="clearCart()">ล้างตะกร้า</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <div class="footer">
+    Made with love ♡ <b id="footerShopName">Jaolove Studio16</b>
+    <div class="small" style="margin-top:5px">Gothic Mini Shop & Receipt System</div>
+  </div>
+</main>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-backdrop" id="productModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="productModalTitle">เพิ่มสินค้าใหม่</h3>
+      <button class="btn btn-icon" onclick="closeModal('productModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="productForm" onsubmit="saveProduct(event)">
+        <input type="hidden" id="editProductId">
+        <div class="form-grid">
+          <div class="form-group full">
+            <label class="field-label">รูปภาพสินค้า</label>
+            <div class="upload-box">
+              <img id="productImagePreview" class="upload-preview" alt="ตัวอย่างรูปสินค้า" src="">
+              <input class="field" type="file" id="productImageInput" accept="image/*">
+              <div class="small muted" style="margin-top:7px">แนะนำรูปภาพแนวตั้งหรือสี่เหลี่ยมจัตุรัส</div>
+              <button type="button" class="btn" style="margin-top:8px" onclick="removeProductImage()">นำรูปออก</button>
+            </div>
+          </div>
+          <div class="form-group full">
+            <label class="field-label" for="productNameInput">ชื่อสินค้า *</label>
+            <input class="field" id="productNameInput" required maxlength="100" placeholder="เช่น Custom Name">
+          </div>
+          <div class="form-group">
+            <label class="field-label" for="productPriceInput">ราคา (บาท) *</label>
+            <input class="field" id="productPriceInput" type="number" min="0" step="0.01" required placeholder="0.00">
+          </div>
+          <div class="form-group">
+            <label class="field-label" for="productCategoryInput">หมวดหมู่</label>
+            <input class="field" id="productCategoryInput" maxlength="40" placeholder="เช่น งานออกแบบ">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('productModal')">ยกเลิก</button>
+      <button class="btn btn-primary" onclick="document.getElementById('productForm').requestSubmit()">บันทึกสินค้า</button>
+    </div>
+  </div>
+</div>
+
+<!-- PROFILE MODAL -->
+<div class="modal-backdrop" id="profileModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>ตั้งค่าโปรไฟล์ร้าน</h3>
+      <button class="btn btn-icon" onclick="closeModal('profileModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group" style="margin-bottom:12px">
+        <label class="field-label">ชื่อร้าน</label>
+        <input class="field" id="profileNameInput" maxlength="70">
+      </div>
+      <div class="form-group">
+        <label class="field-label">คำอธิบายร้าน</label>
+        <textarea class="field" id="profileDescInput" maxlength="250"></textarea>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('profileModal')">ยกเลิก</button>
+      <button class="btn btn-primary" onclick="saveProfile()">บันทึก</button>
+    </div>
+  </div>
+</div>
+
+<!-- HISTORY MODAL -->
+<div class="modal-backdrop" id="historyModal">
+  <div class="modal wide">
+    <div class="modal-head">
+      <h3>♡ ประวัติใบเสร็จ</h3>
+      <button class="btn btn-icon" onclick="closeModal('historyModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <input class="field" id="historySearch" placeholder="ค้นหาเลขที่ใบเสร็จหรือชื่อลูกค้า..." oninput="renderHistory()" style="margin-bottom:13px">
+      <div class="history-list" id="historyList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- RECEIPT MODAL -->
+<div class="modal-backdrop" id="receiptModal">
+  <div class="modal wide">
+    <div class="modal-head">
+      <h3>✦ ใบเสร็จรับเงิน</h3>
+      <button class="btn btn-icon" onclick="closeModal('receiptModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:15px">
+        <button class="btn btn-primary" onclick="printReceipt('80')">พิมพ์ 80mm / PDF</button>
+        <button class="btn btn-primary" onclick="printReceipt('A4')">พิมพ์ A4 / PDF</button>
+      </div>
+      <div id="receiptPreview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ==============================
+   JAOlOVE STUDIO16 MINI SHOP
+   LocalStorage data system
+============================== */
+
+const KEY_PRODUCTS = 'jaolove_pos_products_v1';
+const KEY_RECEIPTS = 'jaolove_pos_receipts_v1';
+const KEY_PROFILE  = 'jaolove_pos_profile_v1';
+
+const $ = id => document.getElementById(id);
+const money = n => '฿' + Number(n || 0).toLocaleString('th-TH',{
+  minimumFractionDigits:2,maximumFractionDigits:2
+});
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+
+function readData(key,fallback){
+  try{
+    const value = localStorage.getItem(key);
+    return value ? JSON.parse(value) : fallback;
+  }catch(e){return fallback}
+}
+let products = readData(KEY_PRODUCTS,[]);
+let receipts = readData(KEY_RECEIPTS,[]);
+let profile = readData(KEY_PROFILE,{
+  name:'Jaolove Studio16',
+  description:'A little gothic shop with love ♡'
+});
+let cart = [];
+let activeCategory = 'ทั้งหมด';
+let currentReceipt = null;
+let editingImage = '';
+
+function saveData(key,data){
+  try{
+    localStorage.setItem(key,JSON.stringify(data));
+    return true;
+  }catch(e){
+    toast('พื้นที่จัดเก็บเต็ม กรุณาลดขนาดรูปภาพ');
+    return false;
+  }
+}
+function escapeHTML(value){
+  return String(value ?? '').replace(/[&<>"']/g,ch=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[ch]));
+}
+function toast(message){
+  const el=$('toast');
+  el.textContent=message;
+  el.classList.add('show');
+  clearTimeout(toast.timer);
+  toast.timer=setTimeout(()=>el.classList.remove('show'),2300);
+}
+function openModal(id){$(id).classList.add('show')}
+function closeModal(id){$(id).classList.remove('show')}
+
+/* ===== PROFILE ===== */
+function renderProfile(){
+  $('topShopName').textContent=profile.name;
+  $('heroShopName').textContent=profile.name;
+  $('footerShopName').textContent=profile.name;
+  $('heroDescription').textContent=profile.description;
+}
+function openProfileModal(){
+  $('profileNameInput').value=profile.name;
+  $('profileDescInput').value=profile.description;
+  openModal('profileModal');
+}
+function saveProfile(){
+  const name=$('profileNameInput').value.trim();
+  if(!name){toast('กรุณาระบุชื่อร้าน');return}
+  const old={...profile};
+  profile={
+    name,
+    description:$('profileDescInput').value.trim()
+  };
+  if(!saveData(KEY_PROFILE,profile)){
+    profile=old;return;
+  }
+  renderProfile();
+  closeModal('profileModal');
+  toast('บันทึกโปรไฟล์ร้านแล้ว ♡');
+}
+
+/* ===== IMAGE UPLOAD / COMPRESSION ===== */
+function resizeImage(file){
+  return new Promise((resolve,reject)=>{
+    if(!file || !file.type.startsWith('image/')){
+      reject(new Error('ไฟล์ไม่ใช่รูปภาพ'));return;
+    }
+    const reader=new FileReader();
+    reader.onerror=()=>reject(new Error('อ่านรูปภาพไม่สำเร็จ'));
+    reader.onload=()=>{
+      const img=new Image();
+      img.onerror=()=>reject(new Error('เปิดรูปภาพไม่สำเร็จ'));
+      img.onload=()=>{
+        const max=720;
+        const scale=Math.min(1,max/Math.max(img.width,img.height));
+        const canvas=document.createElement('canvas');
+        canvas.width=Math.max(1,Math.round(img.width*scale));
+        canvas.height=Math.max(1,Math.round(img.height*scale));
+        const ctx=canvas.getContext('2d');
+        ctx.fillStyle='#ffffff';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.drawImage(img,0,0,canvas.width,canvas.height);
+        resolve(canvas.toDataURL('image/jpeg',.76));
+      };
+      img.src=reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+$('productImageInput').addEventListener('change',async e=>{
+  const file=e.target.files[0];
+  if(!file)return;
+  try{
+    editingImage=await resizeImage(file);
+    $('productImagePreview').src=editingImage;
+    toast('เพิ่มรูปภาพแล้ว');
+  }catch(err){toast(err.message)}
+});
+function removeProductImage(){
+  editingImage='';
+  $('productImagePreview').removeAttribute('src');
+  $('productImageInput').value='';
+}
+
+/* ===== PRODUCT MANAGEMENT ===== */
+function openProductModal(id=''){
+  $('productForm').reset();
+  $('editProductId').value='';
+  editingImage='';
+  $('productImagePreview').removeAttribute('src');
+  $('productModalTitle').textContent='เพิ่มสินค้าใหม่';
+
+  if(id){
+    const p=products.find(x=>x.id===id);
+    if(!p)return;
+    $('editProductId').value=p.id;
+    $('productNameInput').value=p.name;
+    $('productPriceInput').value=p.price;
+    $('productCategoryInput').value=p.category||'';
+    editingImage=p.image||'';
+    if(editingImage)$('productImagePreview').src=editingImage;
+    $('productModalTitle').textContent='แก้ไขสินค้า';
+  }
+  openModal('productModal');
+}
+
+function saveProduct(event){
+  event.preventDefault();
+  const name=$('productNameInput').value.trim();
+  const price=Number($('productPriceInput').value);
+  const category=$('productCategoryInput').value.trim()||'ทั่วไป';
+  const editId=$('editProductId').value;
+
+  if(!name || !Number.isFinite(price) || price<0){
+    toast('กรุณากรอกชื่อและราคาสินค้าให้ถูกต้อง');return;
+  }
+
+  const oldProducts=products.map(p=>({...p}));
+  if(editId){
+    products=products.map(p=>p.id===editId
+      ? {...p,name,price,category,image:editingImage}
+      : p
+    );
+    cart=cart.map(item=>item.productId===editId
+      ? {...item,name,price,image:editingImage}
+      : item
+    );
+  }else{
+    products.unshift({
+      id:uid(),name,price,category,image:editingImage,
+      createdAt:new Date().toISOString()
+    });
+  }
+
+  if(!saveData(KEY_PRODUCTS,products)){
+    products=oldProducts;return;
+  }
+  renderProducts();
+  renderCart();
+  closeModal('productModal');
+  toast(editId?'แก้ไขสินค้าแล้ว':'เพิ่มสินค้าแล้ว ♡');
+}
+
+function deleteProduct(id){
+  const p=products.find(x=>x.id===id);
+  if(!p)return;
+  if(!confirm('ต้องการลบสินค้า "'+p.name+'" ใช่ไหม?'))return;
+
+  const old=products;
+  products=products.filter(x=>x.id!==id);
+  if(!saveData(KEY_PRODUCTS,products)){products=old;return}
+  renderProducts();
+  toast('ลบสินค้าแล้ว');
+}
+
+function renderCategories(){
+  const categories=['ทั้งหมด',...new Set(products.map(p=>p.category||'ทั่วไป'))];
+  if(!categories.includes(activeCategory))activeCategory='ทั้งหมด';
+
+  $('categoryRow').innerHTML=categories.map(c=>`
+    <button class="category-chip ${c===activeCategory?'active':''}"
+      onclick="setCategory('${escapeHTML(c).replace(/'/g,"\\'")}')">
+      ${escapeHTML(c)}
+    </button>
+  `).join('');
+}
+function setCategory(category){
+  activeCategory=category;
+  renderProducts();
+}
+function renderProducts(){
+  renderCategories();
+  const q=$('productSearch').value.trim().toLowerCase();
+  const filtered=products.filter(p=>{
+    const matchCategory=activeCategory==='ทั้งหมด'||(p.category||'ทั่วไป')===activeCategory;
+    const matchSearch=(p.name+' '+(p.category||'')).toLowerCase().includes(q);
+    return matchCategory&&matchSearch;
+  });
+
+  if(!filtered.length){
+    $('productGrid').innerHTML=`
+      <div class="empty" style="grid-column:1/-1">
+        <div class="empty-icon">♡</div>
+        <div>${products.length?'ไม่พบสินค้าที่ค้นหา':'ยังไม่มีสินค้าในร้าน'}</div>
+        <div class="small" style="margin-top:5px">กดปุ่ม “เพิ่มสินค้า” เพื่อเริ่มต้นได้เลย</div>
+      </div>`;
+    return;
+  }
+
+  $('productGrid').innerHTML=filtered.map(p=>`
+    <article class="product-card">
+      <button class="product-edit" onclick="openProductModal('${p.id}')">แก้ไข</button>
+      <div class="product-image">
+        ${p.image?`<img src="${p.image}" alt="${escapeHTML(p.name)}">`:'<div class="no-image">♡</div>'}
+      </div>
+      <div class="product-info">
+        <div class="product-name">${escapeHTML(p.name)}</div>
+        <div class="product-category">${escapeHTML(p.category||'ทั่วไป')}</div>
+        <div class="product-price">${money(p.price)}</div>
+        <div class="product-buttons">
+          <button class="btn btn-primary" onclick="addToCart('${p.id}')">＋ ใส่ตะกร้า</button>
+          <button class="btn btn-danger" onclick="deleteProduct('${p.id}')">ลบ</button>
+        </div>
+      </div>
+    </article>
+  `).join('');
+}
+
+/* ===== CART ===== */
+function addToCart(id){
+  const p=products.find(x=>x.id===id);
+  if(!p)return;
+  const item=cart.find(x=>x.productId===id);
+  if(item)item.qty++;
+  else cart.push({
+    productId:p.id,name:p.name,price:Number(p.price),
+    image:p.image||'',qty:1
+  });
+  renderCart();
+  toast('เพิ่มลงตะกร้าแล้ว ♡');
+}
+function changeQty(id,amount){
+  const item=cart.find(x=>x.productId===id);
+  if(!item)return;
+  item.qty+=amount;
+  if(item.qty<=0)cart=cart.filter(x=>x.productId!==id);
+  renderCart();
+}
+function removeCartItem(id){
+  cart=cart.filter(x=>x.productId!==id);
+  renderCart();
+}
+function clearCart(){
+  if(!cart.length)return;
+  if(!confirm('ต้องการล้างสินค้าในตะกร้าทั้งหมดใช่ไหม?'))return;
+  cart=[];
+  renderCart();
+}
+function getTotals(){
+  const subtotal=cart.reduce((sum,item)=>sum+item.price*item.qty,0);
+  const requested=Math.max(0,Number($('discountInput').value)||0);
+  const discount=Math.min(subtotal,requested);
+  return {subtotal,discount,total:Math.max(0,subtotal-discount)};
+}
+function renderCart(){
+  const count=cart.reduce((sum,item)=>sum+item.qty,0);
+  $('cartCount').textContent=count;
+
+  if(!cart.length){
+    $('cartList').innerHTML='<div class="cart-empty">ยังไม่มีสินค้าในตะกร้า ♡</div>';
+  }else{
+    $('cartList').innerHTML=cart.map(item=>`
+      <div class="cart-item">
+        <div class="cart-thumb">
+          ${item.image?`<img src="${item.image}" alt="">`:'♡'}
+        </div>
+        <div>
+          <div class="cart-item-name">${escapeHTML(item.name)}</div>
+          <div class="cart-item-price">${money(item.price)} / ชิ้น</div>
+          <div class="qty-row">
+            <button class="qty-btn" onclick="changeQty('${item.productId}',-1)">−</button>
+            <span class="qty-value">${item.qty}</span>
+            <button class="qty-btn" onclick="changeQty('${item.productId}',1)">+</button>
+            <button class="cart-remove" onclick="removeCartItem('${item.productId}')">ลบ</button>
+          </div>
+        </div>
+        <div class="cart-line-total">${money(item.price*item.qty)}</div>
+      </div>
+    `).join('');
+  }
+
+  const t=getTotals();
+  $('subtotalText').textContent=money(t.subtotal);
+  $('discountText').textContent='- '+money(t.discount);
+  $('grandTotalText').textContent=money(t.total);
+  $('checkoutBtn').disabled=!cart.length;
+}
+
+/* ===== RECEIPT CREATION ===== */
+function nextReceiptNo(){
+  const max=receipts.reduce((m,r)=>{
+    const n=Number(String(r.number||'').replace(/\D/g,''))||0;
+    return Math.max(m,n);
+  },0);
+  return 'JL-'+String(max+1).padStart(5,'0');
+}
+function checkout(){
+  if(!cart.length){toast('กรุณาเลือกสินค้าก่อน');return}
+  const t=getTotals();
+  const receipt={
+    id:uid(),
+    number:nextReceiptNo(),
+    shopName:profile.name,
+    shopDescription:profile.description,
+    customer:$('customerName').value.trim()||'ลูกค้าทั่วไป',
+    payment:$('paymentMethod').value,
+    note:$('receiptNote').value.trim(),
+    date:new Date().toISOString(),
+    items:cart.map(x=>({...x})),
+    subtotal:t.subtotal,
+    discount:t.discount,
+    total:t.total
+  };
+
+  const oldReceipts=receipts;
+  receipts=[receipt,...receipts];
+  if(!saveData(KEY_RECEIPTS,receipts)){
+    receipts=oldReceipts;return;
+  }
+
+  currentReceipt=receipt;
+  cart=[];
+  $('customerName').value='';
+  $('discountInput').value='0';
+  $('receiptNote').value='';
+  renderCart();
+  renderHistory();
+  showReceipt(receipt);
+  toast('สร้างใบเสร็จเรียบร้อยแล้ว ♡');
+}
+
+/* ===== HISTORY ===== */
+function openHistory(){
+  $('historySearch').value='';
+  renderHistory();
+  openModal('historyModal');
+}
+function renderHistory(){
+  const q=($('historySearch').value||'').trim().toLowerCase();
+  const filtered=receipts.filter(r=>
+    (r.number+' '+r.customer+' '+r.payment).toLowerCase().includes(q)
+  );
+
+  if(!filtered.length){
+    $('historyList').innerHTML='<div class="empty">ยังไม่มีประวัติใบเสร็จ ♡</div>';
+    return;
+  }
+
+  $('historyList').innerHTML=filtered.map(r=>{
+    const date=new Date(r.date).toLocaleString('th-TH');
+    return `
+      <div class="history-card">
+        <div class="history-info">
+          <div class="history-no">${escapeHTML(r.number)}</div>
+          <div class="history-meta">${escapeHTML(r.customer)} · ${date}</div>
+          <div class="history-meta">${r.items.length} รายการ · ${escapeHTML(r.payment)}</div>
+          <div class="history-actions">
+            <button class="btn btn-soft" onclick="viewReceipt('${r.id}')">ดูใบเสร็จ</button>
+            <button class="btn btn-danger" onclick="deleteReceipt('${r.id}')">ลบประวัติ</button>
+          </div>
+        </div>
+        <div class="history-total">${money(r.total)}</div>
+      </div>`;
+  }).join('');
+}
+function viewReceipt(id){
+  const r=receipts.find(x=>x.id===id);
+  if(!r)return;
+  closeModal('historyModal');
+  showReceipt(r);
+}
+function deleteReceipt(id){
+  if(!confirm('ต้องการลบประวัติใบเสร็จนี้ใช่ไหม?'))return;
+  const old=receipts;
+  receipts=receipts.filter(r=>r.id!==id);
+  if(!saveData(KEY_RECEIPTS,receipts)){receipts=old;return}
+  renderHistory();
+  toast('ลบประวัติแล้ว');
+}
+  
+<script>
+/* ===== RECEIPT DISPLAY ===== */
+function receiptHTML(r){
+  const date=new Date(r.date).toLocaleString('th-TH',{
+    dateStyle:'long',timeStyle:'short'
+  });
+
+  const itemRows=r.items.map(item=>`
+    <tr>
+      <td>
+        <div style="display:flex;align-items:center;gap:8px">
+          ${item.image
+            ? `<img src="${item.image}" style="width:38px;height:38px;object-fit:cover;border-radius:6px">`
+            : ''}
+          <span>${escapeHTML(item.name)}</span>
+        </div>
+      </td>
+      <td>${item.qty}</td>
+      <td>${money(item.price)}</td>
+      <td>${money(item.price*item.qty)}</td>
+    </tr>
+  `).join('');
+
+  return `
+    <div class="receipt-preview">
+      <div style="text-align:center;border-bottom:2px solid #d9c5d5;padding-bottom:14px">
+        <div style="font-size:12px;letter-spacing:3px;color:#a56c91">✦ JAOlOVE STUDIO16 ✦</div>
+        <h2>${escapeHTML(r.shopName||'Jaolove Studio16')}</h2>
+        <div class="r-muted">${escapeHTML(r.shopDescription||'')}</div>
+        <div style="font-size:11px;margin-top:10px;letter-spacing:2px">RECEIPT / ใบเสร็จรับเงิน</div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;gap:10px;margin-top:15px;font-size:11px">
+        <div>
+          <div><b>เลขที่:</b> ${escapeHTML(r.number)}</div>
+          <div style="margin-top:5px"><b>ลูกค้า:</b> ${escapeHTML(r.customer)}</div>
+        </div>
+        <div style="text-align:right">
+          <div><b>วันที่:</b></div>
+          <div>${date}</div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>รายการสินค้า</th>
+            <th>จำนวน</th>
+            <th>ราคา</th>
+            <th>รวม</th>
+          </tr>
+        </thead>
+        <tbody>${itemRows}</tbody>
+      </table>
+
+      <div style="max-width:250px;margin-left:auto">
+        <div class="r-total"><span>ยอดรวม</span><b>${money(r.subtotal)}</b></div>
+        <div class="r-total"><span>ส่วนลด</span><b>- ${money(r.discount)}</b></div>
+        <div class="r-total r-grand"><span>ยอดสุทธิ</span><b>${money(r.total)}</b></div>
+      </div>
+
+      <div style="border-top:1px dashed #cdb9ca;margin-top:17px;padding-top:12px;font-size:11px">
+        <div><b>ช่องทางชำระเงิน:</b> ${escapeHTML(r.payment)}</div>
+        ${r.note?`<div style="margin-top:5px"><b>หมายเหตุ:</b> ${escapeHTML(r.note)}</div>`:''}
+      </div>
+
+      <div style="text-align:center;margin-top:24px;padding-top:12px;border-top:1px solid #e9e0e8">
+        <div style="font:600 22px 'Cormorant Garamond',serif;color:#9a527c">Thank you ♡</div>
+        <div class="r-muted">ขอบคุณที่อุดหนุน Jaolove Studio16</div>
+      </div>
+    </div>
+  `;
+}
+
+function showReceipt(receipt){
+  currentReceipt=receipt;
+  $('receiptPreview').innerHTML=receiptHTML(receipt);
+  openModal('receiptModal');
+}
+
+/* ===== PRINT / SAVE PDF ===== */
+function printReceipt(format){
+  if(!currentReceipt)return;
+
+  const r=currentReceipt;
+  const isSmall=format==='80';
+  const width=isSmall?'72mm':'190mm';
+  const page=isSmall?'80mm auto':'A4';
+
+  const date=new Date(r.date).toLocaleString('th-TH',{
+    dateStyle:'long',timeStyle:'short'
+  });
+
+  const rows=r.items.map(item=>`
+    <tr>
+      <td class="item-name">
+        ${item.image?`<img src="${item.image}" alt="">`:''}
+        <span>${escapeHTML(item.name)}</span>
+      </td>
+      <td class="center">${item.qty}</td>
+      <td class="right">${money(item.price)}</td>
+      <td class="right">${money(item.price*item.qty)}</td>
+    </tr>
+  `).join('');
+
+  const printWindow=window.open('','_blank');
+  if(!printWindow){
+    toast('กรุณาอนุญาตป๊อปอัปเพื่อพิมพ์ใบเสร็จ');
+    return;
+  }
+
+  printWindow.document.open();
+  printWindow.document.write(`<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${escapeHTML(r.number)} — Receipt</title>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;padding:0;background:#fff;color:#211a22;
+  font-family:'Prompt',sans-serif;font-size:${isSmall?'10px':'12px'};
+}
+.paper{width:${width};margin:0 auto;padding:${isSmall?'5mm':'10mm'}}
+.header{
+  text-align:center;border-bottom:2px solid #c99bb8;
+  padding-bottom:12px;margin-bottom:12px;
+}
+.brand{
+  font-size:10px;letter-spacing:2px;color:#a56c91;
+}
+h1{
+  font:700 ${isSmall?'26px':'34px'} 'Cormorant Garamond',serif;
+  margin:5px 0;color:#4c3047;
+}
+.description{font-size:10px;color:#756675}
+.receipt-title{
+  margin-top:10px;font-size:11px;letter-spacing:2px;
+}
+.info{
+  display:flex;justify-content:space-between;gap:8px;
+  font-size:10px;margin:12px 0;
+}
+.info div:last-child{text-align:right}
+table{width:100%;border-collapse:collapse;margin:12px 0}
+th,td{
+  padding:7px 3px;border-bottom:1px solid #e8dfe7;
+  vertical-align:middle;
+}
+th{
+  color:#875675;background:#f8f1f6;
+  font-size:9px;font-weight:600;
+}
+.item-name{display:flex;align-items:center;gap:5px}
+.item-name img{
+  width:30px;height:30px;object-fit:cover;border-radius:4px;
+}
+.center{text-align:center;white-space:nowrap}
+.right{text-align:right;white-space:nowrap}
+.totals{width:65%;margin-left:auto;font-size:11px}
+.total-row{
+  display:flex;justify-content:space-between;
+  gap:10px;padding:4px 0;
+}
+.grand{
+  border-top:1px solid #c99bb8;margin-top:6px;padding-top:9px;
+  font-size:16px;font-weight:600;color:#96577e;
+}
+.payment{
+  border-top:1px dashed #c9b4c5;margin-top:14px;
+  padding-top:10px;font-size:10px;line-height:1.8;
+}
+.thanks{
+  border-top:1px solid #eadfea;margin-top:20px;padding-top:12px;
+  text-align:center;
+}
+.thanks strong{
+  display:block;font:700 23px 'Cormorant Garamond',serif;
+  color:#9a527c;
+}
+.thanks span{font-size:10px;color:#756675}
+@page{size:${page};margin:${isSmall?'0':'10mm'}}
+@media print{
+  body{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  .paper{margin:0 auto}
+}
+</style>
+</head>
+<body>
+<div class="paper">
+  <header class="header">
+    <div class="brand">✦ JAOlOVE STUDIO16 ✦</div>
+    <h1>${escapeHTML(r.shopName||'Jaolove Studio16')}</h1>
+    <div class="description">${escapeHTML(r.shopDescription||'')}</div>
+    <div class="receipt-title">RECEIPT / ใบเสร็จรับเงิน</div>
+  </header>
+
+  <div class="info">
+    <div>
+      <div><b>เลขที่:</b> ${escapeHTML(r.number)}</div>
+      <div style="margin-top:5px"><b>ลูกค้า:</b> ${escapeHTML(r.customer)}</div>
+    </div>
+    <div>
+      <div><b>วันที่:</b></div>
+      <div>${date}</div>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>รายการ</th>
+        <th class="center">จำนวน</th>
+        <th class="right">ราคา</th>
+        <th class="right">รวม</th>
+      </tr>
+    </thead>
+    <tbody>${rows}</tbody>
+  </table>
+
+  <div class="totals">
+    <div class="total-row"><span>ยอดรวม</span><b>${money(r.subtotal)}</b></div>
+    <div class="total-row"><span>ส่วนลด</span><b>- ${money(r.discount)}</b></div>
+    <div class="total-row grand"><span>ยอดสุทธิ</span><b>${money(r.total)}</b></div>
+  </div>
+
+  <div class="payment">
+    <div><b>ช่องทางชำระเงิน:</b> ${escapeHTML(r.payment)}</div>
+    ${r.note?`<div><b>หมายเหตุ:</b> ${escapeHTML(r.note)}</div>`:''}
+  </div>
+
+  <div class="thanks">
+    <strong>Thank you ♡</strong>
+    <span>ขอบคุณที่อุดหนุน Jaolove Studio16</span>
+  </div>
+</div>
+<script>
+window.onload=()=>{
+  setTimeout(()=>window.print(),500);
+};
+<\/script>
+</body>
+</html>`);
+  printWindow.document.close();
+}
+
+/* ===== INITIALIZE ===== */
+function initializeApp(){
+  renderProfile();
+  renderProducts();
+  renderCart();
+  renderHistory();
+
+  // ปิดหน้าต่างเมื่อกดพื้นที่ด้านนอก
+  document.querySelectorAll('.modal-backdrop').forEach(backdrop=>{
+    backdrop.addEventListener('click',event=>{
+      if(event.target===backdrop)backdrop.classList.remove('show');
+    });
+  });
+}
+initializeApp();
+</script>
+</body>
+</html>
